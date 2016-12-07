@@ -26,6 +26,7 @@ staticServer logger directory host port = do
     Logger.header logger $ "Listening on http://" ++ host ++ ":" ++ show port
     Warp.runSettings warpSettings $
         Static.staticApp (Static.defaultFileServerSettings directory)
+                           { Static.ssAddTrailingSlash = True }
   where
     warpSettings = Warp.setLogger noLog
         $ Warp.setHost (fromString host)
